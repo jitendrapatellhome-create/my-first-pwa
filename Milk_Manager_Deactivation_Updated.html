@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milk Manager</title>
+<style>
+:root{--bg:#F1F5F9;--card:#fff;--text:#152238;--muted:#68778d;--line:#e2e9f2;--blue:#245fe5;--blue2:#eaf1ff;--green:#0f8b68;--green2:#e5f7f0;--teal:#0f766e;--orange:#d97706;--red:#c43d45;--shadow:0 10px 30px rgba(25,48,85,.075)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.top{max-width:1200px;margin:auto;padding:14px 22px;display:flex;flex-direction:column;align-items:stretch;gap:10px}.topline{display:flex;align-items:center;justify-content:space-between;gap:16px}.global-month{display:flex;align-items:center;gap:8px;margin-left:auto}.global-month label{font-size:12px;color:var(--muted);font-weight:750}.global-month select{border:1px solid #d9e0ea;border-radius:10px;padding:9px 11px;background:#fff;color:var(--text);font:inherit;max-width:180px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px}.logo{width:40px;height:40px;border-radius:13px;background:var(--blue2);display:grid;place-items:center;font-size:22px}nav{display:flex;gap:7px}.navbtn{border:0;background:transparent;color:var(--muted);padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer}.navbtn.active{background:linear-gradient(135deg,#eaf1ff,#e5efff);color:var(--blue);box-shadow:inset 0 0 0 1px #d8e5ff}main{max-width:1100px;margin:25px auto;padding:0 22px 48px}.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.heading h1{margin:0 0 5px;font-size:27px;letter-spacing:-.5px}.sub{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.metric{padding:17px}.grid>.metric:nth-child(4n+1){background:#eef4ff;border-color:#dbe7ff}.grid>.metric:nth-child(4n+2){background:#edf9f2;border-color:#d5f0df}.grid>.metric:nth-child(4n+3){background:#eff9fb;border-color:#d7eef2}.grid>.metric:nth-child(4n){background:#fff8ec;border-color:#f6e8ca}.metric .label{color:var(--muted);font-size:13px;font-weight:650}.metric .value{font-size:24px;font-weight:850;margin-top:7px;letter-spacing:-.5px}.metric .hint{color:var(--muted);font-size:12px;margin-top:4px}.panel{padding:20px;margin-top:17px;border-radius:18px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.panel h2{font-size:17px;margin:0}.muted,.small{color:var(--muted)}.small{font-size:12px}.toolbar,.monthbar,.ratebar{display:flex;flex-wrap:wrap;align-items:end;gap:10px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;border:1px solid #d9e0ea;border-radius:10px;padding:10px 11px;background:#fff;color:var(--text);font:inherit;outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2864dc1a}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.formgrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.formgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:750;cursor:pointer;background:linear-gradient(135deg,#2864e8,#174ac4);color:#fff;box-shadow:0 5px 13px rgba(37,99,235,.17);transition:transform .15s,box-shadow .15s}.btn:active{transform:translateY(1px)}.btn.secondary{background:#eaf1ff;color:#245fe5;box-shadow:none}.btn.ghost{background:#f0f3f7;color:#344054}.btn.danger{background:#fff0f0;color:var(--red)}.btn:disabled{opacity:.5;cursor:not-allowed}.tabs{display:flex;gap:9px;margin:0 0 16px}.tabbtn{flex:1;border:1px solid var(--line);background:#fff;color:var(--muted);padding:12px;border-radius:11px;font-weight:750;cursor:pointer}.tabbtn.active{background:var(--blue2);color:var(--blue);border-color:#cbdcff}.tabpane{display:none}.tabpane.active{display:block}.entrytotal{display:flex;align-items:center;justify-content:space-between;background:#f7f9fc;border:1px dashed #ccd6e4;border-radius:11px;padding:12px 14px;margin-top:14px}.entrytotal strong{font-size:19px}.entry-row{padding:13px 0;border-bottom:1px solid var(--line)}.entry-row:last-of-type{border-bottom:0}.entry-date-row,.rate-total-row{display:flex;align-items:end;justify-content:space-between;gap:14px}.entry-date-row h2,.milk-entry-row h3{margin:0;font-size:18px;font-weight:800}.entry-tools{display:flex;align-items:end;gap:12px}.summary-btn{background:linear-gradient(135deg,#2563eb,#1746bb);padding:12px 17px;box-shadow:0 7px 16px rgba(37,99,235,.24);white-space:nowrap}.summary-btn span{font-size:17px;margin-left:5px}.customer-period{font-size:12px;color:var(--muted);margin:0 0 10px;padding:7px 10px;background:#f5f8fc;border-radius:8px;display:inline-block}.entry-date-row .field{width:190px}.milk-entry-row .formgrid{margin-top:10px}.entry-total-value{display:flex;flex-direction:column;gap:4px;align-items:flex-end;color:var(--muted);font-size:12px;font-weight:700}.entry-total-value strong{font-size:22px;color:var(--green)}.rate-total-row .field{width:190px}.dairy-entry-card .field input[readonly]{background:linear-gradient(135deg,#e7f8f1,#e4f4f5);color:var(--teal);font-weight:800;border-color:#ccebdd}.personbox{background:linear-gradient(135deg,#f5f8fc,#eef6f7);border:1px solid var(--line);border-radius:13px;padding:15px;margin-top:12px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:500px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:700;background:#fbfcfe}.iconbtn{border:0;background:#f0f3f7;color:#475467;border-radius:8px;padding:6px 9px;cursor:pointer}.empty{text-align:center;color:var(--muted);padding:24px 12px;font-size:13px}.pill{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:var(--green2);color:var(--green);font-size:11px;font-weight:750}.chartbox{border:1px solid var(--line);border-radius:13px;padding:17px}.charttitle{font-weight:750;margin-bottom:5px}.chartbars{height:210px;display:flex;align-items:flex-end;justify-content:center;gap:30px;padding:15px 12px 0;border-bottom:1px solid var(--line)}.chartgroup{height:100%;display:flex;align-items:flex-end;gap:12px;min-width:110px;justify-content:center}.chartcol{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;min-width:42px}.chartbar{width:38px;min-height:2px;border-radius:7px 7px 0 0;background:var(--blue)}.chartbar.orange{background:#e6a13a}.chartvalue{font-size:11px;font-weight:750;color:var(--text);white-space:nowrap}.chartname{font-size:11px;color:var(--muted)}.legend{display:flex;gap:17px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;background:var(--blue)}.dot.orange{background:#e6a13a}.customergrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.customer-card{padding:18px;border-radius:18px;border-top:3px solid #2b68df}.customer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:13px}.customer-title{font-weight:800;font-size:17px}.customer-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:5px;color:var(--muted);font-size:12px}.customer-meta b{color:var(--text)}.customer-card .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.customer-card .metric{padding:12px;border-radius:12px;box-shadow:none}.customer-card .metric .value{font-size:19px}.customer-actions{display:flex;gap:7px;align-items:center;margin-top:13px;flex-wrap:nowrap}.customer-actions .btn{flex:1;min-width:0;padding:10px 7px;font-size:12px;white-space:nowrap}.customer-status-btn{border:0;border-radius:999px;padding:6px 11px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;background:var(--green2);color:var(--green)}.customer-status-btn.inactive{background:#fff3df;color:#a45a00}.payment-form{display:none;background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:12px;margin-top:12px}.payment-form.open{display:block}.payment-form .toolbar{align-items:end}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 16px;border-radius:10px;box-shadow:var(--shadow);z-index:30;display:none;font-size:13px}dialog{border:0;border-radius:16px;padding:22px;max-width:420px;width:calc(100% - 32px);box-shadow:0 20px 70px #15223844}dialog::backdrop{background:#17203366}dialog h3{margin:0 0 8px}dialog p{color:var(--muted);font-size:14px}.dialogactions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.customergrid{grid-template-columns:1fr}.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.topline{gap:8px}.brand{font-size:18px}.logo{width:36px;height:36px}.global-month{margin-left:0;justify-content:flex-end}.global-month label{display:none}.global-month select{width:132px;flex:0 1 132px;padding:8px}.customer-actions{gap:5px}.customer-actions .btn{padding:9px 4px;font-size:11px}.entry-date-row .field,.rate-total-row .field{width:48%}.entry-tools{gap:8px}.entry-tools .field{width:46%}.summary-btn{padding:11px 12px;font-size:12px}.entry-date-row,.rate-total-row{align-items:end}.entry-total-value strong{font-size:19px}.top{padding:12px 14px}.top nav{width:100%}.navbtn{flex:1;padding:9px 8px}main{padding:0 14px 35px;margin-top:19px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:24px}.panel{padding:15px}.grid{gap:9px}.metric{padding:13px}.metric .value{font-size:20px}.formgrid,.formgrid.three,.formgrid.two{grid-template-columns:1fr 1fr}.chartbars{gap:10px}.chartbar{width:31px}.monthbar .field{width:100%}.customer-card .metric .value{font-size:18px}}
+
+/* Dark theme is limited to the Dairy Entry popup. */
+.entry-popup{border:1px solid #303743;border-radius:22px;padding:14px;background:#101318;color:#f4f7fb;width:min(620px,calc(100% - 28px));max-width:620px;max-height:90vh;overflow:auto;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+.entry-popup::backdrop{background:rgba(9,15,26,.72);backdrop-filter:blur(3px)}
+.entry-popup .dairy-entry-card{background:#171b22;border:1px solid #303743;box-shadow:0 14px 34px rgba(0,0,0,.28);margin:0;padding:18px}
+.entry-popup .entry-row{border-color:#303743}
+.entry-popup .field label,.entry-popup .entry-total-value{color:#aeb8c6}
+.entry-popup .field input{background:#242a33;border-color:#3a4350;color:#f5f7fa}
+.entry-popup .field input:focus{border-color:#4d86ff;box-shadow:0 0 0 3px #2563eb33}
+.entry-popup .dairy-entry-card .field input[readonly]{background:#123b36;color:#55d6b0;border-color:#24675c}
+.entry-popup .entry-total-value strong{color:#35c98f}
+.entry-popup .milk-entry-row h3,.entry-popup .popup-head h2{color:#f4f7fb}
+.entry-popup .btn[type=submit]{background:linear-gradient(135deg,#3478ff,#2456d8)}
+.popup-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.popup-head h2{font-size:20px;margin:0}
+.popup-close{width:36px;height:36px;border:0;border-radius:50%;background:#2b3340;color:#fff;font-size:25px;line-height:1;cursor:pointer}
+.customers-heading{flex-direction:row!important;align-items:center!important;justify-content:space-between!important}
+.customers-heading h1{margin:0!important}
+.customer-add-compact{padding:8px 12px;font-size:13px;border-radius:10px;white-space:nowrap}
+@media(max-width:560px){
+ .entry-popup{padding:8px;width:calc(100% - 20px);max-height:92vh;border-radius:18px}
+ .entry-popup .dairy-entry-card{padding:14px}
+ .entry-popup .entry-date-row{display:block}
+ .entry-popup .entry-tools{display:block;width:100%}
+ .entry-popup .entry-tools .field{width:100%;min-width:0}
+ .entry-popup .entry-tools .field input{min-width:0;padding:10px 8px;font-size:14px}
+ .customers-heading{flex-direction:row!important;align-items:center!important}
+ .customer-add-compact{padding:8px 10px;font-size:12px}
+}
+
+</style>
+</head>
+<body>
+<header><div class="top"><div class="topline"><div class="brand"><div class="logo">🥛</div><span>Milk Manager</span></div><div class="global-month"><label for="globalMonth">Month</label><select id="globalMonth" aria-label="Filter all pages by month"></select></div></div><nav aria-label="Main navigation"><button class="navbtn" data-page="home">Home</button><button class="navbtn active" data-page="dairy">Dairy</button><button class="navbtn" data-page="customers">Customer</button></nav></div></header>
+<main>
+<section id="home" class="page">
+  <div class="heading"><div><h1>Home Dashboard</h1></div><span class="pill" id="todayLabel"></span></div>
+  <div class="grid" id="homeMetrics"></div>
+  <div class="panel"><div class="panelhead"><div><h2>Monthly Analysis</h2></div></div>
+    <div class="chartbox"><div class="charttitle" id="homeChartTitle">Current month total</div><div class="chartbars" id="homeChart"></div><div class="legend"><span><i class="dot"></i>Milk Sale (Litres)</span><span><i class="dot orange"></i>Sale Amount (₹)</span></div></div>
+    <div class="tablewrap" style="margin-top:15px" id="homeMonthTable"></div>
+  </div>
+</section>
+<section id="dairy" class="page active">
+  <div class="heading"><div><h1>Summary</h1></div></div>
+  <dialog id="dairyEntryDialog" class="entry-popup" aria-labelledby="entryPopupTitle">
+  <div id="dairyEntryPane" class="tabpane active">
+    <div class="panel dairy-entry-card"><div class="popup-head"><h2 id="entryPopupTitle">Milk Entry</h2><button class="popup-close" type="button" id="closeDairyEntry" aria-label="Close entry">×</button></div><form id="dairyMilkForm">
+      <div class="entry-row entry-date-row"><div class="entry-tools"><div class="field"><label for="dairyEntryDate">Date</label><input type="date" id="dairyEntryDate" required></div></div></div>
+      <div class="entry-row milk-entry-row"><h3>Milk Quantity</h3><div class="formgrid two"><div class="field"><label for="dairyLitres">Litres</label><input type="number" id="dairyLitres" min="0" step="1" value="0" required></div><div class="field"><label for="dairyMl">Millilitres</label><input type="number" id="dairyMl" min="0" max="999" step="1" value="0" required></div></div></div>
+      <div class="entry-row rate-total-row"><div class="field"><label>Rate per Litre</label><input id="dairyEntryRate" type="text" readonly></div><div class="entry-total-value"><span>Total Amount</span><strong id="dairyEntryTotal">₹0.00</strong></div></div>
+      <div style="margin-top:14px"><button class="btn" type="submit">Save Entry</button></div></form>
+    </div>
+  </div>
+  </dialog>
+  <div id="dairySummaryPane" class="tabpane active">
+    <div class="panel"><div class="panelhead" style="align-items:center"><h2 id="dairySummaryPerson">Dairy Summary</h2><div style="display:flex;align-items:center;gap:10px"><span class="small" id="dairyRecordMonth"></span><button class="btn secondary" type="button" id="dairyEntryBack">Entry</button></div></div><div class="grid" id="dairyMetrics"></div><div class="customer-actions"><button class="btn secondary" type="button" id="toggleDairyPayment">＋ Add Payment</button><button class="btn secondary" type="button" id="settleDairy">Settled</button><button class="btn danger" type="button" id="deleteDairyPayments">Delete</button></div><form id="dairyPaymentForm" class="payment-form"><div class="toolbar"><div class="field" style="width:190px"><label for="dairyPaymentDate">Payment Date</label><input type="date" id="dairyPaymentDate" required></div><div class="field" style="width:190px"><label for="dairyPaymentAmount">Amount Received (₹)</label><input type="number" id="dairyPaymentAmount" min="0.01" step="0.01" required placeholder="Enter amount"></div><button class="btn" type="submit">Save Payment</button></div></form></div>
+    <div class="panel"><div class="panelhead"><h2>Milk Entry Records</h2><span class="small" id="dairyMilkRecordMonth"></span></div><div class="tablewrap" id="dairyMilkRecords"></div></div>
+    <div class="panel"><div class="panelhead"><h2>Payment Records</h2></div><div class="tablewrap" id="dairyPaymentRecords"></div></div>
+    <div style="margin-top:14px"><button class="btn danger" id="deleteDairyMonth">Delete Selected Month Records</button></div>
+    <div class="panel"><div class="panelhead"><h2>Dairy Person Details</h2></div>
+      <div class="personbox"><div id="dairyPersonDisplay" class="small">No dairy person details saved yet.</div></div>
+      <form id="dairyPersonForm" style="margin-top:13px"><div class="formgrid three"><div class="field"><label for="dairyPersonName">Dairy Name / Person Name</label><input id="dairyPersonName" maxlength="80" placeholder="Enter dairy name" required></div><div class="field"><label for="dairyPersonPhone">Mobile Number (optional)</label><input id="dairyPersonPhone" type="tel" maxlength="20" placeholder="Mobile number"></div><div class="field"><label for="dairyRate">Rate per Litre (₹)</label><input id="dairyRate" type="number" min="0" step="0.01" required></div></div><div style="margin-top:12px"><button class="btn secondary" type="submit">Save Person Details & Rate</button></div></form>
+    </div>
+  </div>
+</section>
+<section id="customers" class="page">
+  <div class="heading customers-heading"><div><h1>Permanent Customer</h1></div><button class="btn customer-add-compact" id="toggleCustomerForm" type="button">＋ Add</button></div>
+  <div class="panel" style="margin-top:0">
+    <form id="customerForm" style="display:none"><div class="formgrid"><div class="field"><label for="customerName">Customer Name</label><input id="customerName" maxlength="80" required placeholder="Enter customer name"></div><div class="field"><label for="customerStartDate">Starting Date</label><input id="customerStartDate" type="date" required></div><div class="field"><label for="customerLitres">Fixed Daily Milk (Litres)</label><input id="customerLitres" type="number" min="0" step="1" value="0" required></div><div class="field"><label for="customerMl">Millilitres</label><input id="customerMl" type="number" min="0" max="999" step="1" value="0" required></div><div class="field"><label for="customerRate">Rate per Litre (₹)</label><input id="customerRate" type="number" min="0" step="0.01" required placeholder="Enter rate"></div><div class="field"><label for="customerPhone">Mobile Number (optional)</label><input id="customerPhone" type="tel" maxlength="20" placeholder="Mobile number"></div></div><div style="margin-top:13px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="submit">Save Customer</button><button class="btn ghost" type="button" id="cancelCustomerForm">Cancel</button></div></form>
+  </div>
+  <div class="panel"><div class="panelhead"><h2>All Customers Summary</h2><span class="small" id="customerSummaryMonth"></span></div><div class="grid" id="customerSummaryMetrics"></div></div>
+  <div id="customerCards" class="customergrid"></div>
+</section>
+</main>
+<dialog id="editCustomerDialog">
+  <h3>Edit Customer</h3>
+  <form id="editCustomerForm">
+    <div class="formgrid two">
+      <div class="field"><label for="editCustomerName">Name</label><input id="editCustomerName" maxlength="80" required></div>
+      <div class="field"><label for="editEffectiveDate">Effective Date</label><input id="editEffectiveDate" type="date" required></div>
+      <div class="field"><label for="editCustomerLitres">Daily Litres</label><input id="editCustomerLitres" type="number" min="0" step="1" required></div>
+      <div class="field"><label for="editCustomerMl">Millilitres</label><input id="editCustomerMl" type="number" min="0" max="999" step="1" required></div>
+      <div class="field"><label for="editCustomerRate">Rate / Litre (₹)</label><input id="editCustomerRate" type="number" min="0" step="0.01" required></div>
+    </div>
+    <div class="dialogactions"><button class="btn ghost" type="button" id="cancelEditCustomer">Cancel</button><button class="btn" type="submit">Save</button></div>
+  </form>
+</dialog>
+<dialog id="deactivateCustomerDialog">
+  <h3>Deactivate Customer</h3>
+  <p>Select the last date on which this customer will receive milk. Milk delivery will stop from the following day.</p>
+  <form id="deactivateCustomerForm">
+    <div class="field"><label for="deactivationDate">Last Milk Date</label><input id="deactivationDate" type="date" required></div>
+    <div class="dialogactions"><button class="btn ghost" type="button" id="cancelDeactivation">Cancel</button><button class="btn danger" type="submit">Deactivate</button></div>
+  </form>
+</dialog>
+<dialog id="confirmDialog"><h3 id="dialogTitle">Confirm delete</h3><p id="dialogMessage">Are you sure?</p><div class="dialogactions"><button class="btn ghost" id="dialogCancel">Cancel</button><button class="btn danger" id="dialogConfirm">Delete</button></div></dialog>
+<div class="toast" id="toast"></div>
+<script>
+(()=>{
+'use strict';
+const KEY='milkManagerFinal_v1';
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const monthKey=d=>(d||'').slice(0,7);
+const monthLabel=k=>{if(!k)return '';const [y,m]=k.split('-').map(Number);return new Date(y,m-1,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'})};
+let selectedMonth=monthKey(today());
+const monthOptions=()=>{const dates=[today(),...data.dairyEntries.map(x=>x.date),...data.dairyPayments.map(x=>x.date),...data.customers.flatMap(c=>[c.startDate,...(c.payments||[]).map(x=>x.date),...(c.entries||[]).map(x=>x.date)])].filter(d=>d&&d<=today()).sort();const first=monthKey(dates[0]||today()),last=monthKey(today());const [fy,fm]=first.split('-').map(Number),[ly,lm]=last.split('-').map(Number);const out=[];let y=ly,m=lm;while(y>fy||(y===fy&&m>=fm)){out.push(`${y}-${String(m).padStart(2,'0')}`);m--;if(m<1){m=12;y--}}return out};
+const filterByMonth=(arr,dateField='date')=>selectedMonth==='all'?arr:arr.filter(x=>monthKey(x[dateField])===selectedMonth);
+const fmtDate=d=>d?new Date(`${d}T12:00:00`).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'—';
+const dateStr=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const monthAnchor=(year,month,day)=>dateStr(new Date(year,month,Math.min(day,new Date(year,month+1,0).getDate()),12));
+const addDays=(date,n)=>{const d=new Date(`${date}T12:00:00`);d.setDate(d.getDate()+n);return dateStr(d)};
+const nextAnchor=(date,anchorDay)=>{const d=new Date(`${date}T12:00:00`);return monthAnchor(d.getFullYear(),d.getMonth()+1,anchorDay)};
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(n)||0);
+const number=n=>new Intl.NumberFormat('en-IN',{maximumFractionDigits:3}).format(Number(n)||0);
+const uid=()=>crypto.randomUUID?crypto.randomUUID():`${Date.now()}_${Math.random().toString(16).slice(2)}`;
+const blank=()=>({dairyRate:0,customerRate:0,dairyPerson:{name:'',phone:''},dairyEntries:[],dairyPayments:[],customers:[]});
+let data;try{data=JSON.parse(localStorage.getItem(KEY))||blank()}catch{data=blank()}data={...blank(),...data};
+data.dairyPerson=data.dairyPerson||{name:'',phone:''};data.dairyEntries=Array.isArray(data.dairyEntries)?data.dairyEntries:[];data.dairyPayments=Array.isArray(data.dairyPayments)?data.dairyPayments:[];data.customers=Array.isArray(data.customers)?data.customers:[];
+data.customers.forEach(c=>{c.entries=Array.isArray(c.entries)?c.entries:[];c.payments=Array.isArray(c.payments)?c.payments:[];c.inactivePeriods=Array.isArray(c.inactivePeriods)?c.inactivePeriods:[];c.history=Array.isArray(c.history)&&c.history.length?c.history:[{date:c.startDate||today(),dailyQty:Number(c.dailyQty)||0,rate:Number(c.rate)||0}];c.history.sort((a,b)=>a.date.localeCompare(b.date));});
+const $=id=>document.getElementById(id);let toastTimer;
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const qtyFrom=(l,ml)=>Math.max(0,Number(l)||0)+Math.max(0,Number(ml)||0)/1000;
+const totalQty=a=>a.reduce((s,x)=>s+(Number(x.qty)||0),0);
+const totalAmount=a=>a.reduce((s,x)=>s+(Number(x.amount)||0),0);
+const totalPayments=a=>a.reduce((s,x)=>s+(Number(x.amount)||0),0);
+const due=(sale,received)=>Math.max(0,sale-received);
+const customerValuesOn=(c,date)=>{const history=(c.history||[]).filter(v=>v.date<=date).sort((a,b)=>a.date.localeCompare(b.date));const v=history[history.length-1];return v?{dailyQty:Number(v.dailyQty)||0,rate:Number(v.rate)||0}:{dailyQty:Number(c.dailyQty)||0,rate:Number(c.rate)||0}};
+const isCustomerInactiveOn=(c,date)=>{if(c.deactivatedAt&&date>c.deactivatedAt)return true;return (c.inactivePeriods||[]).some(p=>date>=p.start&&date<=p.end)};
+const customerPeriodValue=(c,start,end,maxDays=30)=>{let milk=0,amount=0,days=0;for(let date=start;date<=end&&days<maxDays;date=addDays(date,1)){if(isCustomerInactiveOn(c,date))continue;const v=customerValuesOn(c,date);milk+=v.dailyQty;amount+=v.dailyQty*v.rate;days++}return {milk,amount:Math.round(amount*100)/100,days}};
+const customerAccrualEntries=c=>{const stops=[c.archivedAt,c.deactivatedAt].filter(Boolean).sort();const cutoff=stops.length&&stops[0]<today()?stops[0]:today();if(!c.startDate||c.startDate>cutoff)return [];const out=[];let cursor=c.startDate;while(cursor<=cutoff){const next=nextAnchor(cursor,Number(c.startDate.slice(8,10))),end=addDays(next,-1),actualEnd=end>cutoff?cutoff:end;const v=customerPeriodValue(c,cursor,actualEnd,30);if(v.days)out.push({id:`accrual-${c.id}-${cursor}`,date:cursor,periodStart:cursor,periodEnd:end,days:v.days,qty:v.milk,rate:v.milk?v.amount/v.milk:0,amount:v.amount});cursor=next}return out};
+const allCustomerEntries=()=>data.customers.flatMap(c=>[...(c.entries||[]),...customerAccrualEntries(c)]);
+const allCustomerPayments=()=>data.customers.flatMap(c=>c.payments||[]);
+const allSales=()=>[...data.dairyEntries,...allCustomerEntries()];
+const allPayments=()=>[...data.dairyPayments,...allCustomerPayments()];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=msg=>{$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2400)};
+const metric=(label,value,hint='')=>`<div class="card metric"><div class="label">${label}</div><div class="value">${value}</div>${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+const table=(heads,rows,empty)=>rows.length?`<table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`:`<div class="empty">${empty}</div>`;
+function setDefaults(){const t=today();['dairyEntryDate','dairyPaymentDate','customerStartDate'].forEach(id=>{if($(id)&&!$(id).value)$(id).value=t});selectedMonth=monthKey(t);renderMonthOptions()}
+function renderMonthOptions(){const el=$('globalMonth');if(!el)return;const keep=selectedMonth;const opts=monthOptions();el.innerHTML='<option value="all">All Months</option>'+opts.map(k=>`<option value="${k}">${new Date(k+'-01T12:00:00').toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</option>`).join('');el.value=opts.includes(keep)||keep==='all'?keep:monthKey(today())}
+function customerMonthlyContribution(c,month){
+ const monthStart=month+'-01',monthEnd=addDays(nextMonthStart(month),-1);
+ if(!c.startDate||c.startDate>monthEnd)return {milk:0,sale:0};
+ if(c.archivedAt&&c.archivedAt<monthStart)return {milk:0,sale:0};
+ if(c.deactivatedAt&&c.deactivatedAt<monthStart)return {milk:0,sale:0};
+ const hasInactiveDays=(c.inactivePeriods||[]).some(p=>p.start<=monthEnd&&p.end>=monthStart);
+ const deactivatedThisMonth=!!(c.deactivatedAt&&c.deactivatedAt>=monthStart&&c.deactivatedAt<=monthEnd);
+ if(hasInactiveDays||deactivatedThisMonth){
+   const start=c.startDate>monthStart?c.startDate:monthStart;
+   const end=c.archivedAt&&c.archivedAt<monthEnd?c.archivedAt:(c.deactivatedAt&&c.deactivatedAt<monthEnd?c.deactivatedAt:monthEnd);
+   if(start>end)return {milk:0,sale:0};
+   const v=customerPeriodValue(c,start,end,30);
+   return {milk:v.milk,sale:v.amount};
+ }
+ const v=customerValuesOn(c,monthStart);
+ return {milk:v.dailyQty*30,sale:v.dailyQty*v.rate*30};
+}
+function customerMonthTotals(month){
+ const monthEnd=addDays(nextMonthStart(month),-1);
+ const customers=data.customers.filter(c=>c.startDate&&c.startDate<=monthEnd&&!c.archived&&(!c.archivedAt||c.archivedAt>=month+'-01')&&(!c.deactivatedAt||c.deactivatedAt>=month+'-01'));
+ const totals=customers.map(c=>customerMonthlyContribution(c,month));
+ return {milk:totals.reduce((v,x)=>v+x.milk,0),sale:totals.reduce((v,x)=>v+x.sale,0),customers};
+}
+function renderHome(){
+ const m=selectedMonth,dairyEntries=filterByMonth(data.dairyEntries),dairyPayments=filterByMonth(data.dairyPayments);
+ let customerMilk=0,customerSale=0,customerReceived=0;
+ const months=m==='all'?monthOptions():[m];
+ months.forEach(month=>{const t=customerMonthTotals(month);customerMilk+=t.milk;customerSale+=t.sale;customerReceived+=t.customers.reduce((v,c)=>v+totalPayments((c.payments||[]).filter(p=>monthKey(p.date)===month)),0)});
+ const milk=totalQty(dairyEntries)+customerMilk,sale=totalAmount(dairyEntries)+customerSale;
+ const received=totalPayments(dairyPayments)+customerReceived;
+ $('homeMetrics').innerHTML=metric('Total Sale',money(sale),'Dairy + Customer')+metric('Total Milk Sale',`${number(milk)} L`,'Dairy + 30-day customer totals')+metric('Total Money Received',money(received),'Payments collected')+metric('Due Amount',money(due(sale,received)),'Remaining balance');
+ $('homeChartTitle').textContent=`${m==='all'?'All saved months':monthLabel(m)} total`;
+ const q=milk,a=sale,maxQ=Math.max(q,0.001),maxA=Math.max(a,0.01);
+ const hQ=q?Math.max(3,q/maxQ*100):0,hA=a?Math.max(3,a/maxA*100):0;
+ $('homeChart').innerHTML=`<div class="chartgroup"><div class="chartcol"><div class="chartvalue">${number(q)} L</div><div class="chartbar" style="height:${hQ}%"></div><div class="chartname">Milk Sale</div></div><div class="chartcol"><div class="chartvalue">${money(a)}</div><div class="chartbar orange" style="height:${hA}%"></div><div class="chartname">Sale Amount</div></div></div>`;
+ $('homeMonthTable').innerHTML=table([m==='all'?'Period':'Month','Total Milk Sale','Sale Amount'],[`<tr><td><strong>${m==='all'?'All Months':monthLabel(m)}</strong></td><td>${number(q)} L</td><td>${money(a)}</td></tr>`],'No records for this period.');
+ $('todayLabel').textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+}
+function dairyData(){const entries=filterByMonth(data.dairyEntries),payments=filterByMonth(data.dairyPayments);return {m:selectedMonth,entries,payments,milk:totalQty(entries),sale:totalAmount(entries),received:totalPayments(payments)}}
+function updateDairyPreview(){const qty=qtyFrom($('dairyLitres').value,$('dairyMl').value),rate=Number(data.dairyRate)||0;$('dairyEntryRate').value=`${money(rate)} / L`;$('dairyEntryTotal').textContent=money(qty*rate)}
+function renderDairy(){
+ $('dairyPersonName').value=data.dairyPerson.name||'';$('dairyPersonPhone').value=data.dairyPerson.phone||'';$('dairyRate').value=Number(data.dairyRate)||0;
+ 
+ $('dairyPersonDisplay').textContent=data.dairyPerson.name?`${data.dairyPerson.name}${data.dairyPerson.phone?' · '+data.dairyPerson.phone:''}`:'No dairy person details saved yet.';
+ $('dairySummaryPerson').textContent=data.dairyPerson.name||'Dairy Summary';updateDairyPreview();
+ const d=dairyData();$('dairyMetrics').innerHTML=metric('Total Milk',`${number(d.milk)} L`)+metric('Total Amount',money(d.sale))+metric('Amount Received',money(d.received))+metric('Amount Due',money(due(d.sale,d.received)));
+ $('dairyRecordMonth').textContent=d.m==='all'?'All Months':monthLabel(d.m);
+ $('deleteDairyMonth').style.display=d.m==='all'?'none':'inline-flex';
+ const mr=d.entries.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<tr><td>${esc(e.date)}</td><td>${number(e.qty)} L</td><td>${money(e.rate)}/L</td><td><strong>${money(e.amount)}</strong></td><td><button class="iconbtn" data-delete-dairy-entry="${esc(e.id)}">Delete</button></td></tr>`);
+ const pr=d.payments.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<tr><td>${esc(p.date)}</td><td><strong>${money(p.amount)}</strong></td><td><button class="iconbtn" data-delete-dairy-payment="${esc(p.id)}">Delete</button></td></tr>`);
+ $('dairyMilkRecords').innerHTML=table(['Date','Given Milk','Rate','Amount','Action'],mr,'No milk entries for this period.');$('dairyPaymentRecords').innerHTML=table(['Date','Amount Received','Action'],pr,'No payment records for this period.');
+}
+function nextMonthStart(month){const [y,m]=month.split('-').map(Number);return `${m===12?y+1:y}-${String(m===12?1:m+1).padStart(2,'0')}-01`}
+function daysInclusive(start,end){if(!start||start>end)return 0;const a=new Date(`${start}T12:00:00`),b=new Date(`${end}T12:00:00`);return Math.max(0,Math.floor((b-a)/86400000)+1)}
+function customerPeriod(c){
+ if(selectedMonth==='all')return {start:c.startDate,end:today(),label:'All time'};
+ if(!c.startDate)return {start:'',end:''};
+ const [y,m]=selectedMonth.split('-').map(Number),anchor=Number(c.startDate.slice(8,10));
+ const start=monthAnchor(y,m-1,anchor);
+ if(start<c.startDate)return {start:'',end:''};
+ let end=addDays(nextAnchor(start,anchor),-1);
+ if(end>today())end=today();
+ if(c.deactivatedAt&&end>c.deactivatedAt)end=c.deactivatedAt;
+ return {start,end};
+}
+function customerTotals(c){
+ if(selectedMonth!=='all'&&c.deactivatedAt&&selectedMonth>monthKey(c.deactivatedAt))return {milk:0,sale:0,received:0,due:0,days:0,start:'',end:''};
+ if(selectedMonth==='all'){
+  const accrual=customerAccrualEntries(c),fixedMilk=accrual.reduce((v,x)=>v+x.qty,0),fixedSale=accrual.reduce((v,x)=>v+x.amount,0),oldMilk=totalQty(c.entries||[]),oldSale=totalAmount(c.entries||[]),received=totalPayments(c.payments||[]);
+  const days=accrual.reduce((v,x)=>v+(x.days||0),0);
+  return {milk:fixedMilk+oldMilk,sale:fixedSale+oldSale,received,due:due(fixedSale+oldSale,received),days,start:c.startDate,end:c.archivedAt||today()};
+ }
+ const period=customerPeriod(c);if(!period.start)return {milk:0,sale:0,received:0,due:0,days:0,start:'',end:''};
+ const fixed=customerPeriodValue(c,period.start,period.end,30);
+ const extra=(c.entries||[]).filter(e=>e.date>=period.start&&e.date<=period.end),extraMilk=totalQty(extra),extraSale=totalAmount(extra);
+ const received=totalPayments((c.payments||[]).filter(p=>p.date>=period.start&&p.date<=period.end));
+ const milk=fixed.milk+extraMilk,sale=fixed.amount+extraSale;
+ return {milk,sale,received,due:due(sale,received),days:fixed.days,start:period.start,end:period.end};
+}
+function renderCustomers(){
+ const summaryCustomers=data.customers.filter(c=>!c.archived);
+ const monthCustomers=data.customers.filter(c=>c.startDate&&!c.archived&&(selectedMonth==='all'||c.startDate.slice(0,7)<=selectedMonth));
+ const customerMilk=selectedMonth==='all'
+   ? monthCustomers.reduce((sum,c)=>sum+customerAccrualEntries(c).reduce((v,x)=>v+x.qty,0),0)
+   : monthCustomers.reduce((sum,c)=>sum+customerMonthlyContribution(c,selectedMonth).milk,0);
+ const customerSale=selectedMonth==='all'
+   ? monthCustomers.reduce((sum,c)=>sum+customerAccrualEntries(c).reduce((v,x)=>v+x.amount,0),0)
+   : monthCustomers.reduce((sum,c)=>sum+customerMonthlyContribution(c,selectedMonth).sale,0);
+ const customerReceived=monthCustomers.reduce((sum,c)=>sum+totalPayments((c.payments||[]).filter(p=>selectedMonth==='all'||monthKey(p.date)===selectedMonth)),0);
+ $('customerSummaryMonth').textContent=selectedMonth==='all'?'All Months':monthLabel(selectedMonth);
+ $('customerSummaryMetrics').innerHTML=metric('Total Customers',monthCustomers.length)+metric('Total Milk',`${number(customerMilk)} L`)+metric('Total Amount',money(customerSale))+metric('Money Received',money(customerReceived))+metric('Due Amount',money(due(customerSale,customerReceived)));
+ const list=summaryCustomers.slice().sort((a,b)=>a.name.localeCompare(b.name));
+ $('customerCards').innerHTML=list.length?list.map(c=>{
+  const t=customerTotals(c),q=Number(c.dailyQty)||0,periodLabel=t.start?`${fmtDate(t.start)} – ${fmtDate(t.end)}`:(selectedMonth==='all'?'No milk period':'No billing cycle starts in this selected month');
+  return `<article class="card customer-card"><div class="customer-top"><div><div class="customer-title">${esc(c.name)}</div><div class="customer-meta"><span>Start: <b>${esc(c.startDate||'—')}</b></span><span>Daily: <b>${number(q)} L</b></span><span>Rate: <b>${money(c.rate)}/L</b></span><span>Per Month: <b>${c.deactivatedAt?'Stopped':money(q*(Number(c.rate)||0)*30)}</b></span></div>${c.phone?`<div class="small" style="margin-top:5px">${esc(c.phone)}</div>`:''}</div><button class="customer-status-btn ${c.deactivatedAt?'inactive':''}" type="button" data-customer-status="${esc(c.id)}">${c.deactivatedAt?'Inactive · Reactivate':'Active'}</button></div>
+   <div class="customer-period">${periodLabel} · ${t.days} days</div>
+   <div class="grid">${metric('Total Milk',`${number(t.milk)} L`)}${metric('Total Amount',money(t.sale))}${metric('Amount Received',money(t.received))}${metric('Amount Due',money(t.due))}</div>
+   <div class="customer-actions"><button class="btn secondary" type="button" data-toggle-payment="${esc(c.id)}">Add Payment</button><button class="btn secondary" type="button" data-settle-customer="${esc(c.id)}">Settled</button><button class="btn secondary" type="button" data-edit-customer="${esc(c.id)}">Edit</button><button class="btn danger" type="button" data-archive-customer="${esc(c.id)}">Delete</button></div>
+   <form class="payment-form" data-customer-payment="${esc(c.id)}"><div class="toolbar"><div class="field" style="width:160px"><label>Payment Date</label><input type="date" name="date" value="${today()}" required></div><div class="field" style="width:160px"><label>Amount Received (₹)</label><input type="number" name="amount" min="0.01" step="0.01" required placeholder="Amount"></div><button class="btn" type="submit">Save Payment</button></div></form>
+  </article>`;
+ }).join(''):'<div class="panel empty" style="grid-column:1/-1">No permanent customers added yet. Use “Add New Customer” to add one.</div>';
+}
+function renderAll(){renderHome();renderDairy();renderCustomers()}
+function navigate(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='home')renderHome();if(page==='dairy')renderDairy();if(page==='customers')renderCustomers();window.scrollTo({top:0,behavior:'smooth'})}
+function confirmAction(title,message,action){$('dialogTitle').textContent=title;$('dialogMessage').textContent=message;const dlg=$('confirmDialog');$('dialogConfirm').onclick=()=>{dlg.close();action()};$('dialogCancel').onclick=()=>dlg.close();dlg.showModal()}
+function setDairyTab(tab){if(tab==='entry'){const dlg=$('dairyEntryDialog');if(!dlg.open)dlg.showModal()}else{const dlg=$('dairyEntryDialog');if(dlg.open)dlg.close();renderDairy()}}
+
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
+$('closeDairyEntry').addEventListener('click',()=>setDairyTab('summary'));$('dairyEntryBack').addEventListener('click',()=>setDairyTab('entry'));$('dairyEntryDialog').addEventListener('click',e=>{if(e.target===$('dairyEntryDialog'))setDairyTab('summary')});
+$('globalMonth').addEventListener('change',()=>{selectedMonth=$('globalMonth').value;renderAll()});
+['dairyLitres','dairyMl'].forEach(id=>$(id).addEventListener('input',updateDairyPreview));
+$('dairyPersonForm').addEventListener('submit',e=>{e.preventDefault();const name=$('dairyPersonName').value.trim(),phone=$('dairyPersonPhone').value.trim(),rate=Number($('dairyRate').value);if(!name||!Number.isFinite(rate)||rate<0){toast('Enter a dairy name and a valid rate.');return}data.dairyPerson={name,phone};data.dairyRate=rate;save();renderDairy();toast('Dairy person details and rate saved.')});
+$('dairyMilkForm').addEventListener('submit',e=>{e.preventDefault();const date=$('dairyEntryDate').value,l=Number($('dairyLitres').value),ml=Number($('dairyMl').value);if(!date||l<0||ml<0||ml>999){toast('Check the date and milk quantity.');return}const qty=qtyFrom(l,ml),rate=Number(data.dairyRate)||0;data.dairyEntries.push({id:uid(),date,qty,rate,amount:Math.round(qty*rate*100)/100});save();selectedMonth=monthKey(date);$('dairyLitres').value=0;$('dairyMl').value=0;renderMonthOptions();renderAll();toast('Dairy milk entry saved.')});
+
+
+$('toggleDairyPayment').addEventListener('click',()=>{$('dairyPaymentForm').classList.toggle('open');if($('dairyPaymentForm').classList.contains('open'))$('dairyPaymentAmount').focus()});
+$('settleDairy').addEventListener('click',()=>{const d=dairyData(),pending=due(d.sale,d.received);if(pending<=0){toast('No pending due amount.');return}confirmAction('Mark Dairy as Settled?',`Add ${money(pending)} as received and clear the current due amount?`,()=>{data.dairyPayments.push({id:uid(),date:today(),amount:Math.round(pending*100)/100,settled:true});save();renderMonthOptions();renderAll();toast('Dairy marked as settled.')})});
+$('deleteDairyPayments').addEventListener('click',()=>{const d=dairyData();if(!d.payments.length){toast('No payment records to delete.');return}confirmAction('Delete payment records?',`Delete ${d.payments.length} payment record(s) in this selected period?`,()=>{const ids=new Set(d.payments.map(p=>p.id));data.dairyPayments=data.dairyPayments.filter(p=>!ids.has(p.id));save();renderMonthOptions();renderAll();toast('Selected Dairy payments deleted.')})});
+$('dairyPaymentForm').addEventListener('submit',e=>{e.preventDefault();const date=$('dairyPaymentDate').value,amount=Number($('dairyPaymentAmount').value);if(!date||!Number.isFinite(amount)||amount<=0){toast('Enter a valid payment amount.');return}data.dairyPayments.push({id:uid(),date,amount:Math.round(amount*100)/100});save();selectedMonth=monthKey(date);$('dairyPaymentAmount').value='';renderMonthOptions();renderDairy();toast('Dairy payment saved.')});
+$('deleteDairyMonth').addEventListener('click',()=>{const m=selectedMonth;if(m==='all'){toast('Select a specific month to delete its records.');return}const count=data.dairyEntries.filter(e=>monthKey(e.date)===m).length+data.dairyPayments.filter(p=>monthKey(p.date)===m).length;if(!count){toast('No records in this month.');return}confirmAction(`Delete ${monthLabel(m)} records?`,'This will permanently delete all Dairy milk entries and payment records for the selected month.',()=>{data.dairyEntries=data.dairyEntries.filter(e=>monthKey(e.date)!==m);data.dairyPayments=data.dairyPayments.filter(p=>monthKey(p.date)!==m);save();renderMonthOptions();renderAll();toast('Selected Dairy month records deleted.')})});
+let editingCustomerId=null;
+let deactivatingCustomerId=null;
+$('cancelDeactivation').addEventListener('click',()=>{$('deactivateCustomerDialog').close();deactivatingCustomerId=null});
+$('deactivateCustomerForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const c=data.customers.find(x=>x.id===deactivatingCustomerId),date=$('deactivationDate').value;
+ if(!c||!date){toast('Select a valid deactivation date.');return}
+ if(date<c.startDate||date>today()){toast('Select a date from the customer start date up to today.');return}
+ c.deactivatedAt=date;
+ save();$('deactivateCustomerDialog').close();deactivatingCustomerId=null;renderMonthOptions();renderAll();toast('Customer deactivated. Milk stops from the next day.');
+});
+$('cancelEditCustomer').addEventListener('click',()=>{$('editCustomerDialog').close();editingCustomerId=null});
+$('editEffectiveDate').addEventListener('change',()=>{if(!editingCustomerId)return;const c=data.customers.find(x=>x.id===editingCustomerId);if(!c)return;const v=customerValuesOn(c,$('editEffectiveDate').value);$('editCustomerLitres').value=Math.floor(v.dailyQty);$('editCustomerMl').value=Math.round((v.dailyQty-Math.floor(v.dailyQty))*1000);$('editCustomerRate').value=v.rate});
+$('editCustomerForm').addEventListener('submit',e=>{e.preventDefault();const c=data.customers.find(x=>x.id===editingCustomerId);if(!c)return;const name=$('editCustomerName').value.trim(),date=$('editEffectiveDate').value,l=Number($('editCustomerLitres').value),ml=Number($('editCustomerMl').value),rate=Number($('editCustomerRate').value);if(!name||!date||date<c.startDate||l<0||ml<0||ml>999||!Number.isFinite(rate)||rate<0){toast('Check the customer details and effective date.');return}const dailyQty=qtyFrom(l,ml);if(dailyQty<=0){toast('Daily milk quantity must be greater than zero.');return}c.name=name;c.history=c.history||[];const existing=c.history.findIndex(v=>v.date===date);const version={date,dailyQty,rate};if(existing>=0)c.history[existing]=version;else c.history.push(version);c.history.sort((a,b)=>a.date.localeCompare(b.date));const current=customerValuesOn(c,today());c.dailyQty=current.dailyQty;c.rate=current.rate;save();$('editCustomerDialog').close();editingCustomerId=null;renderAll();toast('Customer updated.')});
+$('toggleCustomerForm').addEventListener('click',()=>{const f=$('customerForm');f.style.display=f.style.display==='none'?'block':'none';if(f.style.display==='block')$('customerName').focus()});
+$('cancelCustomerForm').addEventListener('click',()=>{$('customerForm').reset();$('customerStartDate').value=today();$('customerLitres').value=0;$('customerMl').value=0;$('customerForm').style.display='none'});
+$('customerForm').addEventListener('submit',e=>{e.preventDefault();const name=$('customerName').value.trim(),startDate=$('customerStartDate').value,l=Number($('customerLitres').value),ml=Number($('customerMl').value),rate=Number($('customerRate').value);if(!name||!startDate||l<0||ml<0||ml>999||!Number.isFinite(rate)||rate<0){toast('Please check customer details, milk quantity and rate.');return}const dailyQty=qtyFrom(l,ml);if(dailyQty<=0){toast('Daily milk quantity must be greater than zero.');return}data.customers.push({id:uid(),name,startDate,dailyQty,rate,phone:$('customerPhone').value.trim(),entries:[],payments:[]});save();renderMonthOptions();$('customerForm').reset();$('customerStartDate').value=today();$('customerLitres').value=0;$('customerMl').value=0;$('customerForm').style.display='none';renderCustomers();toast('Permanent customer added.')});
+document.addEventListener('click',e=>{
+ const status=e.target.closest('[data-customer-status]');
+ if(status){
+   const c=data.customers.find(x=>x.id===status.dataset.customerStatus);if(!c)return;
+   if(c.deactivatedAt){
+     confirmAction('Reactivate Customer?','Milk calculation will resume from today. Previous inactive days will remain excluded.',()=>{
+       c.inactivePeriods=Array.isArray(c.inactivePeriods)?c.inactivePeriods:[];
+       const inactiveStart=addDays(c.deactivatedAt,1),inactiveEnd=addDays(today(),-1);
+       if(inactiveStart<=inactiveEnd)c.inactivePeriods.push({start:inactiveStart,end:inactiveEnd});
+       c.deactivatedAt=null;save();renderMonthOptions();renderAll();toast('Customer reactivated.');
+     });
+   }else{
+     deactivatingCustomerId=c.id;$('deactivationDate').value=today();$('deactivationDate').min=c.startDate||'';$('deactivationDate').max=today();$('deactivateCustomerDialog').showModal();
+   }
+   return;
+ }
+ const tab=e.target.closest('[data-toggle-payment]');if(tab){const card=tab.closest('.customer-card'),form=card.querySelector('.payment-form');form.classList.toggle('open');if(form.classList.contains('open'))form.querySelector('input[name="amount"]').focus();return}
+ const settle=e.target.closest('[data-settle-customer]');if(settle){const c=data.customers.find(x=>x.id===settle.dataset.settleCustomer);if(!c)return;const t=customerTotals(c),pending=t.due;if(pending<=0){toast('No pending due amount.');return}const paymentDate=selectedMonth==='all'?today():(t.end||today());confirmAction('Mark Customer as Settled?',`Add ${money(pending)} as received and clear this customer’s due amount?`,()=>{c.payments=c.payments||[];c.payments.push({id:uid(),date:paymentDate,amount:Math.round(pending*100)/100,settled:true});save();renderMonthOptions();renderAll();toast('Customer marked as settled.')});return}
+ const edit=e.target.closest('[data-edit-customer]');if(edit){const c=data.customers.find(x=>x.id===edit.dataset.editCustomer);if(!c)return;editingCustomerId=c.id;const v=customerValuesOn(c,today());$('editCustomerName').value=c.name;$('editEffectiveDate').min=c.startDate||'';$('editEffectiveDate').value=today();$('editCustomerLitres').value=Math.floor(v.dailyQty);$('editCustomerMl').value=Math.round((v.dailyQty-Math.floor(v.dailyQty))*1000);$('editCustomerRate').value=v.rate;$('editCustomerDialog').showModal();return}
+ const archive=e.target.closest('[data-archive-customer]');if(archive){const id=archive.dataset.archiveCustomer;const c=data.customers.find(x=>x.id===id);if(!c)return;confirmAction('Permanently delete customer?',`Delete ${c.name} and all of their milk entries, payment records and history? This cannot be undone.`,()=>{data.customers=data.customers.filter(x=>x.id!==id);save();renderMonthOptions();renderAll();toast('Customer and all related records deleted.')});return}
+ const de=e.target.closest('[data-delete-dairy-entry]');if(de){const id=de.dataset.deleteDairyEntry;confirmAction('Delete milk entry?','This Dairy milk entry will be permanently deleted.',()=>{data.dairyEntries=data.dairyEntries.filter(x=>x.id!==id);save();renderMonthOptions();renderAll();toast('Milk entry deleted.')});return}
+ const dp=e.target.closest('[data-delete-dairy-payment]');if(dp){const id=dp.dataset.deleteDairyPayment;confirmAction('Delete payment?','This Dairy payment will be permanently deleted.',()=>{data.dairyPayments=data.dairyPayments.filter(x=>x.id!==id);save();renderMonthOptions();renderAll();toast('Payment deleted.')})}
+});
+document.addEventListener('submit',e=>{const f=e.target.closest('[data-customer-payment]');if(!f)return;e.preventDefault();const c=data.customers.find(x=>x.id===f.dataset.customerPayment);if(!c)return;const fd=new FormData(f),date=fd.get('date'),amount=Number(fd.get('amount'));if(!date||!Number.isFinite(amount)||amount<=0){toast('Enter a valid payment.');return}c.payments.push({id:uid(),date,amount:Math.round(amount*100)/100});save();selectedMonth=monthKey(date);renderMonthOptions();renderAll();toast('Customer payment saved.')});
+setDefaults();renderAll();$('dairyEntryDialog').showModal();
+})();
+</script>
+</body>
+</html>
