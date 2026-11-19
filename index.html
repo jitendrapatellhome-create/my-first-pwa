@@ -319,5 +319,21 @@ document.addEventListener('submit',e=>{const f=e.target.closest('[data-customer-
 setDefaults();renderAll();$('dairyEntryDialog').showModal();
 })();
 </script>
+ 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(registration => {
+        console.log("Milk Manager PWA Ready!");
+      })
+      .catch(error => {
+        console.error("Service Worker Error:", error);
+      });
+  });
+}
+</script>
+
 </body>
 </html>
